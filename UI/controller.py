@@ -1,3 +1,5 @@
+from asyncio.windows_events import NULL
+
 import flet as ft
 from UI.view import View
 from model.model import Model
@@ -23,6 +25,7 @@ class Controller:
 
         lista_biblioteche = self._model.get_biblioteche()
 
+        self._view.dd_biblioteca.options.append(ft.dropdown.Option(text="Nessun filtro"))
         for bib in lista_biblioteche:
             self._view.dd_biblioteca.options.append(ft.dropdown.Option(bib.nome))
 
@@ -32,18 +35,33 @@ class Controller:
         generi = []
         libri = self._model.get_libri()
 
+        self._view.dd_genere.options.append(ft.dropdown.Option(text="Nessun filtro"))
         for libro in libri:
             if libro.genere not in generi:
                 generi.append(libro.genere)
                 self._view.dd_genere.options.append(ft.dropdown.Option(libro.genere))
 
     # CALLBACKS DROPDOWN
-    # TODO
+    def salva_filtro_biblioteca(self):
+        valore = self._view.dd_biblioteca.value
+        if valore == "Nessun filtro":
+            valore = None
+        else:
+            pass
+        self.biblioteca_selezionata = valore
+
+    def salva_filtro_genere(self):
+        valore = self._view.dd_genere.value
+        if valore == "Nessun filtro":
+            valore = None
+        else:
+            pass
+        self.genere_selezionato = valore
 
     # AZIONE: MOSTRA LIBRI
     def mostra_libri_filtrati(self, e):
         self._view.lista_libri.controls.clear()
 
-        libri = self._model.get_libri_filtrati(self._view.dd_biblioteca.value, self._view.dd_genere.value)
+        libri = self._model.get_libri_filtrati(self.biblioteca_selezionata, self.genere_selezionato)
         for libro in libri:
             self._view.lista_libri.controls.append(ft.Text(f"{libro}"))

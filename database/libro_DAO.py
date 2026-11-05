@@ -37,8 +37,8 @@ class LibroDAO:
             query = """SELECT l.id, titolo, autore, genere, anno_pubblicazione, id_biblioteca    
                         FROM libro l, biblioteca b 
                         WHERE l.id_biblioteca = b.id AND
-                        b.nome = %s AND
-                        l.genere = %s"""
+                        b.nome = COALESCE(%s, b.nome) AND
+                        l.genere = COALESCE(%s, l.genere)"""
             cursor = conn.cursor()
             cursor.execute(query, (biblioteca, genere))
             righe = cursor.fetchall()
