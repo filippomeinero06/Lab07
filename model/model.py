@@ -16,6 +16,7 @@ class Model:
         self._lista_libri = []
         self._lista_biblioteche = []
 
+        # Popolo le liste di libri e biblioteche
         self.get_libri()
         self.get_biblioteche()
 
@@ -27,7 +28,8 @@ class Model:
 
         for libro in self._lista_libri:
             self._dict_libri[libro.id] = libro
-            libro.biblioteca = self._dict_biblioteche[libro.id_biblioteca]  # Aggiungiamo un attributo agli oggetti Libro, contenente il riferimento all'oggetto Biblioteca in cui è contenuto il libro
+            # Aggiungiamo un attributo in più agli oggetti di tipo Libro, contenente il riferimento all'oggetto Biblioteca in cui è contenuto il libro
+            libro.biblioteca = self._dict_biblioteche[libro.id_biblioteca]
 
 
 
