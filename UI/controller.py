@@ -32,7 +32,7 @@ class Controller:
     def popola_genere_libri(self):
         self._view.dd_genere.options.clear()
 
-        generi = []
+        generi = []     # lista di generi per memorizzare i generi già inseriti nella dropdown senza duplicarli
         libri = self._model.get_libri()
 
         self._view.dd_genere.options.append(ft.dropdown.Option(text="Nessun filtro"))
@@ -44,7 +44,7 @@ class Controller:
     # CALLBACKS DROPDOWN
     def salva_filtro_biblioteca(self):
         valore = self._view.dd_biblioteca.value
-        if valore == "Nessun filtro":
+        if valore == "Nessun filtro":   # se viene selezionato "Nessun filtro" il valore deve essere None
             valore = None
         else:
             pass
@@ -63,5 +63,8 @@ class Controller:
         self._view.lista_libri.controls.clear()
 
         libri = self._model.get_libri_filtrati(self.biblioteca_selezionata, self.genere_selezionato)
-        for libro in libri:
-            self._view.lista_libri.controls.append(ft.Text(f"{libro}"))
+        if len(libri) > 0:
+            for libro in libri:
+                self._view.lista_libri.controls.append(ft.Text(f"{libro}"))
+        else:
+            self._view.show_alert(f"Non sono presenti libri di genere '{self.genere_selezionato}' presso la {self.biblioteca_selezionata}")
