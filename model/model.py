@@ -38,7 +38,7 @@ class Model:
     # --- LIBRI ---
     def get_libri_filtrati(self, biblioteca:str, genere:str):
         """Restituisce la lista di tutti i libri filtrati per biblioteca e/o genere (filtri opzionali)."""
-        # return self._libro_dao.get_libri_filtrati(biblioteca, genere)
+        # return self._libro_dao.get_libri_filtrati(self, biblioteca, genere)
         risultato = []
 
         for libro in self._lista_libri:
@@ -50,10 +50,9 @@ class Model:
 
     def get_libri(self):
         """Restituisce la lista di tutti i generi."""
-        libro_dao = LibroDAO()
 
         if len(self._lista_libri) == 0:
-            self._lista_libri = libro_dao.get_libri()
+            self._lista_libri = self._libro_dao.get_libri()
         else:
             pass
         return self._lista_libri
@@ -62,10 +61,9 @@ class Model:
     # --- BIBLIOTECHE ---
     def get_biblioteche(self):
         """ Restituisce la lista di tutte le biblioteche."""
-        biblioteche_dao = BibliotecaDAO()
 
         if len(self._lista_biblioteche) == 0:
-            self._lista_biblioteche = biblioteche_dao.get_biblioteche()
+            self._lista_biblioteche = self._biblioteca_dao.get_biblioteche()
         else:
             pass
         return self._lista_biblioteche

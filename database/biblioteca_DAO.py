@@ -10,7 +10,8 @@ class BibliotecaDAO:
     def __init__(self):
         pass
 
-    def get_biblioteche(self):
+    @staticmethod
+    def get_biblioteche():
         biblioteche = []
 
         conn = DBConnect.get_connection()
@@ -28,6 +29,9 @@ class BibliotecaDAO:
                 biblioteche.append(biblioteca)
 
             return biblioteche
+        else:
+            print("No connessione")
+            return None
 
 
 

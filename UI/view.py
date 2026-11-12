@@ -36,8 +36,8 @@ class View:
         self.txt_titolo = ft.Text(value="Biblioteche di Torino", size=38, weight=ft.FontWeight.BOLD)
 
         # --- Sezione 2: Filtraggio ---
-        self.dd_biblioteca = ft.Dropdown(label="Biblioteca", on_select=self.controller.salva_filtro_biblioteca)
-        self.dd_genere = ft.Dropdown(label="Genere", on_select=self.controller.salva_filtro_genere)
+        self.dd_biblioteca = ft.Dropdown(label="Biblioteca", width=400, options=[ft.dropdown.Option(text="Nessun filtro")], on_select=self.controller.salva_filtro_biblioteca)
+        self.dd_genere = ft.Dropdown(label="Genere", width=400, options=[ft.dropdown.Option(text="Nessun filtro")], on_select=self.controller.salva_filtro_genere)
 
         # Sezione 3: Libri
         self.pulsante_mostra = ft.Button(content="Mostra", on_click=self.controller.mostra_libri_filtrati)

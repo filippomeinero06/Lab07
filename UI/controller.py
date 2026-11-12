@@ -25,9 +25,12 @@ class Controller:
 
         lista_biblioteche = self._model.get_biblioteche()
 
-        self._view.dd_biblioteca.options.append(ft.dropdown.Option(text="Nessun filtro"))
-        for bib in lista_biblioteche:
-            self._view.dd_biblioteca.options.append(ft.dropdown.Option(bib.nome))
+        if lista_biblioteche:   # Controllo che la lista di biblioteche esista
+            self._view.dd_biblioteca.options.append(ft.dropdown.Option(text="Nessun filtro"))
+            for bib in lista_biblioteche:
+                self._view.dd_biblioteca.options.append(ft.dropdown.Option(bib.nome))
+        else:
+            self._view.show_alert(f"Errore nel caricamento delle biblioteche")
 
     def popola_genere_libri(self):
         self._view.dd_genere.options.clear()
@@ -35,11 +38,14 @@ class Controller:
         generi = []     # lista di generi per memorizzare i generi già inseriti nella dropdown senza duplicarli
         libri = self._model.get_libri()
 
-        self._view.dd_genere.options.append(ft.dropdown.Option(text="Nessun filtro"))
-        for libro in libri:
-            if libro.genere not in generi:
-                generi.append(libro.genere)
-                self._view.dd_genere.options.append(ft.dropdown.Option(libro.genere))
+        if libri:   # Controllo che la lista di libri esista
+            self._view.dd_genere.options.append(ft.dropdown.Option(text="Nessun filtro"))
+            for libro in libri:
+                if libro.genere not in generi:
+                    generi.append(libro.genere)
+                    self._view.dd_genere.options.append(ft.dropdown.Option(libro.genere))
+        else:
+            self._view.show_alert(f"Errore nel caricamento dei libri")
 
     # CALLBACKS DROPDOWN
     def salva_filtro_biblioteca(self):

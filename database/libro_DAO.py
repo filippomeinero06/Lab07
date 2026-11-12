@@ -10,7 +10,8 @@ class LibroDAO:
     def __init__(self):
         pass
 
-    def get_libri(self):
+    @staticmethod
+    def get_libri():
         libri = []
 
         conn = DBConnect.get_connection()
@@ -28,8 +29,12 @@ class LibroDAO:
                 libri.append(libro)
 
             return libri
+        else:
+            print("No connessione")
+            return None
 
-    def get_libri_filtrati(self, biblioteca : str, genere: str):
+    @staticmethod
+    def get_libri_filtrati(biblioteca : str, genere: str):
         libri_filtrati = []
 
         conn = DBConnect.get_connection()
@@ -49,5 +54,9 @@ class LibroDAO:
                 libro = Libro(*riga)
                 libri_filtrati.append(libro)
 
-        return libri_filtrati
+            return libri_filtrati
+        else:
+            print("No connessione")
+            return None
+
 
